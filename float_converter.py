@@ -36,11 +36,7 @@ def convert_embeddings_column_to_float32(df, column_name, batch_size=100):
 
 
 # Example usage:
-df = pd.read_pickle("df_cleaned.pkl")  # Load your DataFrame containing float16 embeddings
+df = pd.read_pickle("df_cleaned.pkl")  
 df = convert_embeddings_column_to_float32(df, "image_embeddings")
 df.to_pickle("df_cleaned_float16.pkl")
 print(df.head())
-# embeddings_float32 = np.stack(df["image_embeddings"].values)
-# index = index_faiss_cosine_similarity(embeddings_float32)
-# query_embeddings = embeddings_float32[:10]  # Use a subset as queries
-# indices, distances = search_faiss_index(index, query_embeddings)
