@@ -1,0 +1,9 @@
+Tue Oct 22 08:26:09 EDT 2024
+c1106a-s17.ufhpc
+/blue/arthur.porto-biocosmos/ahmed.waseem
+2024-10-22 08:27:29,907 - INFO - Starting data split into train and test sets
+2024-10-22 08:27:29,998 - INFO - Flattening train embeddings for FAISS processing in batches
+2024-10-22 08:27:29,998 - INFO - Flattening embeddings: batch 0 to 1000
+2024-10-22 08:27:37,534 - INFO - Flattening embeddings: batch 1000 to 2000
+/tmp/slurmd/job48230166/slurm_script: line 19: 640790 Killed                  python -u -m memory_profiler faiss_implement.py
+slurmstepd: error: Detected 1 oom-kill event(s) in StepId=48230166.batch. Some of your processes may have been killed by the cgroup out-of-memory handler.

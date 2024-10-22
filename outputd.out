@@ -1,0 +1,41 @@
+Filename: faiss_helper.py
+
+Line #    Mem usage    Increment  Occurrences   Line Contents
+=============================================================
+     9  13759.4 MiB  13759.4 MiB           1   @profile
+    10                                         def convert_embeddings_column_to_float32(df, column_name, batch_size=100):
+    11  13759.4 MiB      0.0 MiB           1       num_embeddings = len(df)
+    12  13759.6 MiB      0.2 MiB           1       df['float32_embeddings'] = None
+    13  13759.6 MiB      0.0 MiB           1       float32_embeddings = []
+    14                                         
+    15                                             # Convert embeddings in batches
+    16  38751.1 MiB      0.0 MiB         112       for start in range(0, num_embeddings, batch_size):
+    17  38543.6 MiB      0.0 MiB         111           end = min(start + batch_size, num_embeddings)
+    18                                                 
+    19                                                 # Extract the batch of embeddings and convert to float32
+    20  38751.1 MiB  24991.5 MiB       22295           batch = df[column_name].iloc[start:end].apply(lambda x: x.astype(np.float32))
+    21                                                 
+    22                                                 # Add the batch to the new column
+    23  38751.1 MiB      0.0 MiB         111           float32_embeddings.extend(batch)
+    24                                                 
+    25                                                 # Delete temporary variables
+    26  38751.1 MiB      0.0 MiB         111           del batch
+    27  38751.1 MiB      0.0 MiB         111           gc.collect()
+    28                                         
+    29                                             # Assign the new 32-bit embeddings to the new column
+    30  38751.1 MiB      0.0 MiB           1       df['float32_embeddings'] = float32_embeddings
+    31                                         
+    32                                             # Delete the original column if no longer needed
+    33  38751.1 MiB      0.0 MiB           1       gc.collect()
+    34                                         
+    35  38751.1 MiB      0.0 MiB           1       return df
+
+
+                       image_filename  ...                                 float32_embeddings
+0  Black_Footed_Albatross_0046_18.jpg  ...  [[-0.89746094, -1.1914062, 0.49389648, -1.0107...
+1  Black_Footed_Albatross_0009_34.jpg  ...  [[-0.38330078, -0.7426758, 0.92285156, -1.2988...
+2  Black_Footed_Albatross_0002_55.jpg  ...  [[-0.5385742, -1.3466797, 0.25927734, -1.13281...
+3  Black_Footed_Albatross_0074_59.jpg  ...  [[-0.6616211, -0.96435547, 0.99853516, -1.1904...
+4  Black_Footed_Albatross_0014_89.jpg  ...  [[-0.7294922, -0.8808594, 1.0136719, -1.024414...
+
+[5 rows x 4 columns]
